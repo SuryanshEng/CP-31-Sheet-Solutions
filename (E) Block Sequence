@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    scanf("%d", &t);
+    while (t--) {
+        int n;
+        scanf("%d", &n);
+        vector<int> a(n);
+        for (auto &x : a) scanf("%d", &x);
+        vector<int> dp(n + 2, 0);
+        for (int i = n - 1; i >= 0; i--) {
+            dp[i] = dp[i + 1];
+            long long e = (long long)i + a[i];
+            if (e < n) {
+                dp[i] = max(dp[i], a[i] + 1 + dp[e + 1]);
+            }
+        }
+        printf("%d\n", n - dp[0]);
+    }
+    return 0;
+}
