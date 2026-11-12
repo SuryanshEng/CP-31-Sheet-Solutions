@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t; cin >> t;
+    while(t--){
+        int n; cin >> n;
+        vector<ll> a(n + 1), b(n + 1), pre(n + 1, 0);
+        for(int i = 1; i <= n; i++) cin >> a[i];
+        for(int i = 1; i <= n; i++){ cin >> b[i]; pre[i] = pre[i - 1] + b[i]; }
+        vector<ll> cnt(n + 2, 0), extra(n + 2, 0);
+        for(int i = 1; i <= n; i++){
+            int r = upper_bound(pre.begin(), pre.end(), a[i] + pre[i - 1]) - pre.begin() - 1;
+            if(r >= i){
+                cnt[i]++;
+                cnt[r + 1]--;
+            }
+            if(r < n){
+                extra[r + 1] += a[i] - (pre[r] - pre[i - 1]);
+            }
+        }
+        ll c = 0;
+        for(int j = 1; j <= n; j++){
+            c += cnt[j];
+            cout << c * b[j] + extra[j] << " ";
+        }
+        cout << "\n";
+    }
+}
