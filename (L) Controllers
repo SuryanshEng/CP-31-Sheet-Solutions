@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n; string s;
+    cin >> n >> s;
+    ll p = 0, m = 0;
+    for(char c : s) (c == '+' ? p : m)++;
+    ll d = p - m;
+    int q; cin >> q;
+    while(q--){
+        ll a, b; cin >> a >> b;
+        bool ok;
+        if(a == b) ok = (d == 0);
+        else {
+            ll num = -d * b, den = a - b;
+            if(num % den != 0) ok = false;
+            else {
+                ll t = num / den;
+                ok = (t >= -m && t <= p);
+            }
+        }
+        cout << (ok ? "YES" : "NO") << "\n";
+    }
+}
